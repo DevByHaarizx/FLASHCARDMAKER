@@ -1,0 +1,50 @@
+<script type="importmap">
+  {
+    "imports": {
+      "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
+    }
+  }
+  </script>
+  <!-- Add Google Fonts Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <main class="container">
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm0-5c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1s-1-.45-1-1V5c0-.55.45-1 1-1zm0 14c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1s-1-.45-1-1v-2c0-.55.45-1 1-1zm-8-6c-.55 0-1-.45-1-1H3c-.55 0-1 .45-1 1s.45 1 1 1h2c.55 0 1-.45 1-1zm14 0c-.55 0-1-.45-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1h2c.55 0 1-.45 1-1zM6.34 6.34c.39-.39 1.02-.39 1.41 0s.39 1.02 0 1.41L6.34 9.17c-.39.39-1.02.39-1.41 0s-.39-1.02 0-1.41l1.41-1.42zm11.32 11.32c.39-.39 1.02-.39 1.41 0s.39 1.02 0 1.41l-1.42 1.42c-.39.39-1.02.39-1.41 0s-.39-1.02 0-1.41l1.42-1.42zm-1.41-11.32c.39.39.39 1.02 0 1.41l-1.42 1.42c-.39.39-1.02.39-1.41 0s-.39-1.02 0-1.41l1.42-1.42c.39-.39 1.02-.39 1.41 0zm-11.32 11.32c.39.39.39 1.02 0 1.41l-1.41 1.42c-.39.39-1.02.39-1.41 0s-.39-1.02 0-1.41l1.41-1.42c.39-.39 1.02-.39 1.41 0z"/>
+      </svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.62-.11 2.36-.32-.42-.5-.69-1.11-.83-1.78-.3-.98.11-2.09 1.11-2.61.85-.45 1.89-.35 2.62.24.47-.84.73-1.8.73-2.81 0-4.97-4.03-9-9-9z"/>
+      </svg>
+    </button>
+    <header>
+      <h1>Flashcard Generator</h1>
+      <p>
+        Enter a topic or a list of terms and definitions to generate flashcards using the Gemini API.
+      </p>
+    </header>
+    <label for="topicInput" class="sr-only">Topic or terms for flashcards</label>
+    <textarea
+      id="topicInput"
+      placeholder="Enter topic (e.g., Ancient Rome) or 'Term: Definition' pairs (one per line)"
+      title="Enter the subject for your flashcards, or paste your own term-definition pairs"
+    ></textarea>
+    <button id="generateButton" title="Generate flashcards from the text above">Generate Flashcards</button>
+    <div id="errorMessage" class="error-message" aria-live="polite" aria-atomic="true"></div>
+    <div class="controls-container">
+      <label for="searchBar" class="sr-only">Search flashcards</label>
+      <input type="search" id="searchBar" class="search-bar" placeholder="Search flashcards..." style="display: none;" aria-controls="flashcardsContainer" title="Filter flashcards by term or definition">
+      <button id="selectButton" class="secondary-button" style="display: none;" title="Select multiple cards to delete">Select</button>
+      <button id="deleteSelectedButton" class="secondary-button" style="display: none;" title="Delete all selected cards">Delete Selected</button>
+      <button id="undoButton" class="secondary-button" style="display: none;" title="Undo the last action (e.g., delete, edit, reorder)">Undo</button>
+      <div id="flashcardCounter" class="flashcard-counter" aria-live="polite"></div>
+    </div>
+    <div id="flashcardsContainer" class="flashcards-container">
+      <!-- Flashcards will be generated here -->
+    </div>
+    <footer>
+      <p>Powered by the Gemini API</p>
+    </footer>
+  </main>

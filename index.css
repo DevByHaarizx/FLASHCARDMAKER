@@ -1,0 +1,462 @@
+
+
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --text-primary: #202124;
+  --text-secondary: #5f6368;
+  --primary: #185abc; /* Darkened for better contrast */
+  --primary-hover: #1753ad; /* Darkened for better contrast */
+  --button-text: white;
+  --border: #dadce0;
+  --error: #d93025;
+  --card-bg: #e8f0fe;
+  --disabled-bg: #e0e0e0;
+  --disabled-text: #a0a0a0;
+  --shadow-color-1: rgba(60, 64, 67, 0.15);
+  --shadow-color-2: rgba(60, 64, 67, 0.1);
+  --focus-shadow-color: rgba(26, 115, 232, 0.2);
+  --button-focus-shadow-color: rgba(26, 115, 232, 0.3);
+  --flashcard-width: 220px;
+  --flashcard-height: 150px;
+}
+
+body.dark-mode {
+  --bg: #202124;
+  --surface: #2d2e30;
+  --text-primary: #e8eaed;
+  --text-secondary: #bdc1c6;
+  --primary: #8ab4f8;
+  --primary-hover: #aecbfa;
+  --button-text: #202124;
+  --border: #5f6368;
+  --error: #f28b82;
+  --card-bg: #3c4043;
+  --disabled-bg: #3c4043;
+  --disabled-text: #7f8184;
+  --shadow-color-1: rgba(0, 0, 0, 0.3);
+  --shadow-color-2: rgba(0, 0, 0, 0.2);
+  --focus-shadow-color: rgba(138, 180, 248, 0.3);
+  --button-focus-shadow-color: rgba(138, 180, 248, 0.4);
+}
+
+/* Visually hide elements while keeping them accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+body {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  position: relative; /* For positioning the theme toggle */
+  background-color: var(--surface);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px var(--shadow-color-1),
+              0 4px 8px var(--shadow-color-2);
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    /* Use Grid to stack and center icons */
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+    box-shadow: none;
+}
+
+.theme-toggle:hover {
+    background-color: var(--focus-shadow-color);
+    color: var(--text-primary);
+}
+
+.theme-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--button-focus-shadow-color);
+}
+
+.theme-toggle .sun-icon,
+.theme-toggle .moon-icon {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out;
+}
+
+/* Light mode (default state) */
+.theme-toggle .moon-icon {
+    transform: rotate(-90deg) scale(0.5);
+    opacity: 0;
+}
+
+/* Dark mode state */
+body.dark-mode .theme-toggle .sun-icon {
+    transform: rotate(90deg) scale(0.5);
+    opacity: 0;
+}
+body.dark-mode .theme-toggle .moon-icon {
+    transform: rotate(0) scale(1);
+    opacity: 1;
+}
+
+
+h1 {
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-size: 2em;
+  font-weight: 500;
+}
+
+p {
+  margin-bottom: 25px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+textarea {
+  width: calc(100% - 22px);
+  padding: 15px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
+  min-height: 120px;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  resize: vertical;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--focus-shadow-color);
+}
+
+button {
+  background-color: var(--primary);
+  color: var(--button-text);
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px var(--shadow-color-2);
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 1px 3px var(--shadow-color-1);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--button-focus-shadow-color);
+}
+
+button:disabled {
+  background-color: var(--disabled-bg);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  padding: 10px 16px; /* Smaller padding */
+}
+
+.secondary-button:hover {
+  background-color: var(--focus-shadow-color);
+  border-color: var(--primary);
+}
+
+.error-message {
+  color: var(--error);
+  margin-top: 20px;
+  font-weight: 500;
+  min-height: 1.5em;
+}
+
+.controls-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: none; /* Hidden by default */
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  flex-grow: 1; /* Take up available space */
+  padding: 12px 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+  margin: 0; /* Reset margins */
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--focus-shadow-color);
+}
+
+.flashcard-counter {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: none; /* Managed by JS */
+}
+
+.flashcards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 40px;
+  justify-content: center;
+  perspective: 1000px; /* Add perspective for 3D effect */
+}
+
+.flashcard {
+  background-color: transparent; /* Make the outer container transparent */
+  width: var(--flashcard-width);
+  height: var(--flashcard-height);
+  border: none; /* Remove border from outer container */
+  border-radius: 10px;
+  cursor: pointer;
+  perspective: 1000px; /* Add perspective for 3D effect */
+  box-shadow: none; /* Remove shadow from outer container */
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flashcard:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--button-focus-shadow-color);
+}
+
+.flashcard.dragging {
+  opacity: 0.4;
+}
+
+.flashcard.hidden {
+  display: none;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  box-shadow: 0 1px 2px var(--shadow-color-2); /* Apply shadow here */
+  border-radius: 10px; /* Apply border-radius here */
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Reduced padding for content */
+  box-sizing: border-box;
+  border-radius: 10px; /* Match parent */
+  border: 1px solid var(--border); /* Apply border here */
+  background-color: var(--card-bg); /* Apply background here */
+  position: relative; /* Positioning context for delete button */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+.flashcard:hover .flashcard-inner {
+  box-shadow: 0 4px 8px var(--shadow-color-1);
+}
+
+.flashcard:hover .flashcard-front,
+.flashcard:hover .flashcard-back {
+   border-color: var(--primary);
+}
+
+.edit-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: none;
+  color: var(--text-secondary);
+  border: 1px solid transparent; /* for size consistency */
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 4px 8px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  border-radius: 6px;
+}
+
+.edit-button:hover {
+  color: var(--text-primary);
+  background-color: var(--focus-shadow-color);
+}
+
+.edit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0 5px;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s ease, transform 0.2s ease;
+  /* Reset general button styles */
+  box-shadow: none;
+}
+
+.delete-button:hover {
+  color: var(--error);
+  transform: scale(1.2);
+  /* Reset general button hover styles */
+  background-color: transparent;
+}
+
+.delete-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--error);
+  border-radius: 50%;
+}
+
+
+.term {
+  font-size: 1.3em; /* Adjust size */
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.definition {
+  font-size: 1.0em; /* Adjust size */
+  color: var(--text-secondary);
+  line-height: 1.4; /* Adjust line height */
+}
+
+.term,
+.definition {
+  border-radius: 4px;
+  padding: 5px;
+  margin: -5px;
+  width: 100%; /* Ensure it takes full width for easier clicking */
+  cursor: default; /* Change cursor back from text */
+  border: 2px solid transparent; /* Reserve space for border */
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.flashcard.is-editing .term,
+.flashcard.is-editing .definition {
+    cursor: text;
+    outline: none;
+    border-color: var(--primary); /* Change border color to indicate edit mode */
+    background-color: var(--surface);
+}
+
+
+/* --- Multi-select styles --- */
+.flashcard-checkbox {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 11;
+    width: 18px;
+    height: 18px;
+}
+
+.multi-select-mode .flashcard-checkbox {
+    display: block;
+}
+
+.multi-select-mode .edit-button,
+.multi-select-mode .delete-button {
+    display: none;
+}
+
+.flashcard.is-selected .flashcard-inner {
+    outline: 3px solid var(--primary);
+    outline-offset: -2px;
+}
+/* --- End multi-select styles --- */
+
+
+footer {
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
